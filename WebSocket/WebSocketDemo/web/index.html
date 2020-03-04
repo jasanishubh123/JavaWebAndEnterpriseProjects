@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+    <html>
+    <body>
+    <h2>WebSocket Test</h2>
+    <div>
+    <input type="text" id="input" />
+    </div>
+    <div>
+   
+    <input type="button" id="sendBtn" value="SEND" onclick="send()" disable="true" />
+    </div>
+    <div id="output">
+    <h2>Output</h2>
+    </div>
+    </body>
+    <script type="text/javascript">
+    var webSocket;
+    var output = document.getElementById("output");
+
+    var sendBtn = document.getElementById("sendBtn");
+    var wsUrl = (location.protocol == "https:" ? "wss://" : "ws://") + location.hostname + (location.port ? ':'+location.port: '') + "/WebSocketDemo/toUpper";
+
+      // Create a websocket
+      webSocket = new WebSocket(wsUrl);
+
+      webSocket.onopen = function(event) {
+        updateOutput("Connected!");
+
+      };
+
+      webSocket.onmessage = function(event) {
+        updateOutput("Clients Message >>"+event.data);
+      };
+
+      webSocket.onclose = function(event) {
+        updateOutput("Connection Closed");
+
+        sendBtn.disabled = true;
+      };
+
+
+    function send() {
+      var text = document.getElementById("input").value;
+      var div = document.getElementById("output").innerHTML += "My Message >>"+ text;
+      webSocket.send(text);
+    }
+
+    function closeSocket() {
+      webSocket.close();
+    }
+
+    function updateOutput(text) {
+      output.innerHTML += "<br/>" + text +"<br/>";
+    }
+    </script>
+    </html>
