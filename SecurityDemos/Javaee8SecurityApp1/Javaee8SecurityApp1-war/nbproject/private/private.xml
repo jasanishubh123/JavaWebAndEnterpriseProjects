@@ -2,6 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/shubham/NetBeansProjects/JavaDemos/JavaWebAndEnterpriseProjects/SecurityDemos/Javaee8SecurityApp1/Javaee8SecurityApp1-war/src/java/rest/RestResource.java</file>
+            <file>file:/home/shubham/NetBeansProjects/JavaDemos/JavaWebAndEnterpriseProjects/SecurityDemos/Javaee8SecurityApp1/Javaee8SecurityApp1-war/src/java/filter/RestFilter.java</file>
+            <file>file:/home/shubham/NetBeansProjects/JavaDemos/JavaWebAndEnterpriseProjects/SecurityDemos/Javaee8SecurityApp1/Javaee8SecurityApp1-war/src/java/client/RestClient.java</file>
+        </group>
     </open-files>
 </project-private>
