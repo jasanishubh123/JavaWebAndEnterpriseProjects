@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:messages style="color: red"> 
+            
+        </h:messages>
+         <h:form>
+            <h:panelGrid columns="2" >
+                <h:outputLabel for="uname" id="lbluname" value="Username :"></h:outputLabel>
+                <h:inputText id="uname" validator="#{customerBean.validateLength}" required="true" requiredMessage="Please Enter Username" value="${customerBean.uname}"></h:inputText>
+                <h:outputLabel for="cname" id="lblcname" value="CustomerName :"></h:outputLabel>
+                <h:inputText id="cname" value="#{customerBean.cname}" >
+                    <f:validator validatorId="customLengthValidator">
+                        
+                    </f:validator>
+                </h:inputText>
+                <h:outputLabel for="pass" id="lblpass" value="Password :"></h:outputLabel>
+                <h:inputSecret  id="pass" value="#{customerBean.cpass}"></h:inputSecret>
+                <h:outputLabel for="Age" id="lblAge" value="Age :"></h:outputLabel>
+                <h:inputText id="Age" value="#{customerBean.cage}">
+                    <f:validateLongRange minimum="18" maximum="70">
+                    </f:validateLongRange>
+                </h:inputText>
+                <h:outputLabel for="RDate" id="lblRdate" value="Date (dd/mm/yyyy):"></h:outputLabel>
+                <h:inputText id="RDate" value="#{customerBean.regDate}">
+                    <f:convertDateTime parent="dd/MM/yyyy" for="RDate">
+                        
+                    </f:convertDateTime>
+                </h:inputText>
+                <h:outputLabel for="Email" id="lblEmail" value="Email :"></h:outputLabel>
+                <h:inputText id="Email" value="#{customerBean.customerEmail}">
+                    <f:validateRegex pattern="[a-z]+@.+..+"></f:validateRegex>
+                </h:inputText>
+                <h:commandButton id="sub" value="Submit" action="ShowDataPage.jsf"></h:commandButton>
+                <h:commandButton id="res" value="Reset"></h:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
