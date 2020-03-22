@@ -5,6 +5,7 @@
  */
 package beans;
 
+import com.sun.istack.NotNull;
 import java.util.Date;
 import javax.inject.Named;
 
@@ -25,12 +26,28 @@ public class CustomerBean {
 
     
     private String uname;
+    
     private String cpass;
     private int cage;
     private String cname;
     private Date regDate= new Date();
     private String customerEmail;
+    private String msg;
 
+    
+    public String showprompt(){
+       // return msg;
+       return msg="Hello I am From AJAX";
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+    
     public String getCustomerEmail() {
         return customerEmail;
     }

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+             <h:outputLabel value="Name:" for="txtname"></h:outputLabel>
+             <h:inputText id="txtname">
+          <f:ajax event="valueChange" execute="txtname" render="msg" listener="#{customerBean.showprompt()}" ></f:ajax>
+
+             </h:inputText>
+        
+        <br/><hr/>
+        
+        <h:outputLabel value="Select" for="radio"></h:outputLabel>
+        <h:selectOneRadio id="radio" value="Male" >
+            <f:selectItem itemValue="Male" itemLabel="Male"></f:selectItem>
+            <f:selectItem itemValue="Female" itemLabel="Female"></f:selectItem>
+        </h:selectOneRadio>
+        
+        <br/><hr/>
+        <h:outputLabel value="Checkbox" for="check"></h:outputLabel>
+        <h:selectManyCheckbox id="check">
+            <f:selectItem itemValue="Cricket" ></f:selectItem>
+            <f:selectItem itemValue="Singing" ></f:selectItem>
+
+        </h:selectManyCheckbox>
+        
+        <br/><hr/>
+        
+        <h:outputLabel value="ListBox" for="list"></h:outputLabel>
+        <h:selectManyListbox id="list">
+            <f:selectItem itemValue="Surat"></f:selectItem>
+            <f:selectItem itemValue="Morbi"></f:selectItem>
+
+        </h:selectManyListbox>
+        
+        <br/><hr/>
+       <h:outputLabel value="Menubox" for="menu"></h:outputLabel>
+ 
+        <h:selectManyMenu id="menu" >
+           
+
+            <f:selectItem itemValue="Surat"></f:selectItem>
+            <f:selectItem itemValue="Mumbai"></f:selectItem>
+
+        </h:selectManyMenu>
+       <br></br>
+       
+        <br/><hr/>
+       <h:outputLabel value="One list box" for="onelist"></h:outputLabel>
+        
+        <h:selectOneListbox id="onelist">
+            <f:selectItem itemValue="Surat"></f:selectItem>
+           <f:selectItem itemValue="Punajab"></f:selectItem>
+
+        </h:selectOneListbox>
+            
+       <br/><hr/>
+       <h:outputLabel value="One menu box" for="onemenu"></h:outputLabel>
+
+       <h:selectOneMenu id="onemenu" value="#{customerBean.msg}" >
+           <f:selectItem itemValue="Surat"></f:selectItem>
+            <f:selectItem itemValue="Punajab"></f:selectItem>
+             <f:ajax event="valueChange" execute="onemenu" render="msg" listener="#{customerBean.showprompt()}" ></f:ajax>
+       </h:selectOneMenu>
+       <h:outputText id="msg" value="#{customerBean.msg}"></h:outputText>
+       <br/><hr></hr>
+       
+       <h:commandLink value="Google" action="index.xhtml" >    
+       </h:commandLink>
+       
+       <br/><hr></hr>
+       <h:outputLabel value="Address" for="textarea"></h:outputLabel>
+
+       <h:inputTextarea id="textarea"  >
+           
+       </h:inputTextarea>
+       
+       
+       <br/><hr></hr>
+       
+       
+       
+       
+       
+        </h:form>
+               
+    </h:body>
+</html>
+

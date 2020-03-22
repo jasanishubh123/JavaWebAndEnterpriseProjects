@@ -24,7 +24,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
 
-<!--    <navigation-rule>
+    <navigation-rule>
         <form-view-id>
             /index.xhtml
         </form-view-id>
@@ -36,5 +36,12 @@
                 /ShowDataPage.jsf
             </to-view-id>
         </navigation-case>
-    </navigation-rule>-->
+    </navigation-rule>
+    
+        <application>
+            <resource-bundle>
+                <base-name>label_hi_IN</base-name>
+                <var>bundel</var>
+            </resource-bundle>
+        </application>
 </faces-config>

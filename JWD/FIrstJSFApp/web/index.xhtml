@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsf/component">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -11,9 +12,13 @@
             
         </h:messages>
          <h:form>
+             <c:mytag type="uname" value="custom component" ></c:mytag>
             <h:panelGrid columns="2" >
                 <h:outputLabel for="uname" id="lbluname" value="Username :"></h:outputLabel>
-                <h:inputText id="uname" validator="#{customerBean.validateLength}" required="true" requiredMessage="Please Enter Username" value="${customerBean.uname}"></h:inputText>
+                <h:inputText id="uname" validator="#{customerBean.validateLength}" required="true" requiredMessage="Please Enter Username" value="${customerBean.uname}">
+                    <f:converter converterId="myconverter"></f:converter>
+                    <f:ajax event="valueChange" execute="uname" render="msg" listener="#{customerBean.showprompt()}" ></f:ajax>
+                </h:inputText>
                 <h:outputLabel for="cname" id="lblcname" value="CustomerName :"></h:outputLabel>
                 <h:inputText id="cname" value="#{customerBean.cname}" >
                     <f:validator validatorId="customLengthValidator">
@@ -29,6 +34,7 @@
                 </h:inputText>
                 <h:outputLabel for="RDate" id="lblRdate" value="Date (dd/mm/yyyy):"></h:outputLabel>
                 <h:inputText id="RDate" value="#{customerBean.regDate}">
+                    
                     <f:convertDateTime parent="dd/MM/yyyy" for="RDate">
                         
                     </f:convertDateTime>
@@ -37,10 +43,11 @@
                 <h:inputText id="Email" value="#{customerBean.customerEmail}">
                     <f:validateRegex pattern="[a-z]+@.+..+"></f:validateRegex>
                 </h:inputText>
-                <h:commandButton id="sub" value="Submit" action="ShowDataPage.jsf"></h:commandButton>
+                <h:commandButton id="sub" value="Submit" action="#{customerBean.ShowData()}"></h:commandButton>
                 <h:commandButton id="res" value="Reset"></h:commandButton>
             </h:panelGrid>
         </h:form>
+        <h:outputText id="msg" value="#{customerBean.msg}"></h:outputText>
     </h:body>
 </html>
 

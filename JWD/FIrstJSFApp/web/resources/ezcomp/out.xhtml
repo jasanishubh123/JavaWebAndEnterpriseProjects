@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:actionSource name="loginButton" targets="form:loginButton"></cc:actionSource>
+        <cc:attribute name="formheader" default="Login"/>
+        <cc:attribute name="lbluser"/>
+        <cc:attribute name="lblpass" />
+        <cc:attribute name="lblsubmit" />
+        <cc:attribute name="lblreset" />
+        <cc:attribute name="loginaction" method-signature="java.lang.String action()"/>
+        <cc:attribute name="managedBean"/>
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            
+            <div>#{cc.attrs.formheader}</div>
+            <h:panelGrid border="1" columns="2">
+                #{cc.attrs.lbluser}
+                <h:inputText id="uname" value="#{userBean.username}" required="true" requiredMessage="Please Enter Username" >
+                    
+                </h:inputText>
+               
+                #{cc.attrs.lblpass}
+                <h:inputSecret id="pass" value="#{userBean.password}" />
+                <h:commandButton id="submit" value="#{cc.attrs.lblsubmit}" action="#{cc.attrs.loginaction}" />
+                <h:commandButton id="reset" value="#{cc.attrs.lblreset}" />
+            </h:panelGrid>
+        </h:form>
+    </cc:implementation>
+</html>
