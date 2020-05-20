@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="title">
+        DataTable - <span class="subitem">Add Row</span>
+    </ui:define>
+
+    <ui:define name="description">
+        A new row can be added by clicking the Add new button.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/datatable" />
+    <ui:param name="widgetLink" value="datatable" />
+
+    <ui:define name="implementation">
+
+         <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+
+            <p:dataTable id="cars1" widgetVar="cars1" var="car" value="#{dtAddRowView.cars1}" editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    Row Editing with add functionality
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{dtAddRowView.onRowEdit}" update=":form:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{dtAddRowView.onRowCancel}" update=":form:msgs" />
+
+                <p:column headerText="Id">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.id}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{car.id}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Year">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.year}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.year}" style="width:100%" label="Year"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Brand">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.brand}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{car.brand}" style="width:100%">
+                                <f:selectItems value="#{dtEditView.brands}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Color">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.color}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{car.color}" style="width:100%">
+                                <f:selectItems value="#{dtEditView.colors}" var="color" itemLabel="#{color}" itemValue="#{color}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+
+             <div class="ui-g">
+                 <div class="ui-g-12">
+                     <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
+                                      action="#{dtAddRowView.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
+                 </div>
+             </div>
+
+         </h:form>
+
+    </ui:define>
+
+</ui:composition>

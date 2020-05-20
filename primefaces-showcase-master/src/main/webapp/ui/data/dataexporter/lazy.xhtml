@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-paginator a {
+                margin-right: 5px;
+            }
+        </style>
+    </ui:define>
+
+
+    <ui:define name="title">
+        DataExporter - <span class="subitem">Basic (LazyDataModel)</span>
+    </ui:define>
+
+    <ui:define name="description">
+        EXCEL, PDF, CSV and XML are the supported formats.<br/>
+        It´s largely similar to the "normal" Basic-example. Only difference is, DataTable is bound to a LazyDataModel.
+        So some other internal codepath´s are taken.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/dataexporter" />
+    <ui:param name="widgetLink" value="dataexporter" />
+
+    <ui:define name="implementation">
+
+        <h:form>
+            <p:panel header="Settings">
+                <p:panelGrid columns="2" styleClass="ui-noborder">
+                    <p:outputLabel for="sortMode">SortMode: </p:outputLabel>
+                    <p:selectOneMenu id="sortMode" value="#{deLazyView.sortMode}">
+                        <f:selectItem itemLabel="single" itemValue="single" />
+                        <f:selectItem itemLabel="multiple" itemValue="multiple" />
+
+                        <p:ajax update="tbl" />
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </p:panel>
+
+            <br/>
+
+            <p:dataTable id="tbl" var="car" value="#{deLazyView.lazyModel}" lazy="true" sortMode="#{deLazyView.sortMode}" filteredValue="#{deLazyView.filteredCars}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                         paginator="true" rows="10" style="margin-bottom:20px">
+
+                <f:facet name="{Exporters}">
+                    <div style="float:right;padding-top: 5px;">
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/excel.png" width="24"/>
+                            <p:dataExporter type="xls" target="tbl" fileName="cars" />
+                        </h:commandLink>
+                        
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/xlsx.png" width="24"/>
+                            <p:dataExporter type="xlsxstream" target="tbl" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="tbl" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="tbl" fileName="cars" />
+                        </h:commandLink>
+                        
+                        <h:commandLink>
+                            <p:graphicImage name="/demo/images/keyboardpencil.png" width="24"/>
+                            <p:dataExporter type="text" target="tbl" fileName="cars" exporter="#{dataExporterView.textExporter}"/>
+                        </h:commandLink>                        
+                    </div>
+                </f:facet>
+
+                <p:column headerText="Id" sortBy="#{car.id}">
+                    <h:outputText value="#{car.id}" />
+                </p:column>
+
+                <p:column headerText="Year" sortBy="#{car.year}" filterBy="#{car.year}">
+                    <h:outputText value="#{car.year}" />
+                </p:column>
+
+                <p:column headerText="Brand" sortBy="#{car.brand}">
+                    <h:outputText value="#{car.brand}" />
+                </p:column>
+
+                <p:column headerText="Color" sortBy="#{car.color}">
+                    <h:outputText value="#{car.color}" />
+                </p:column>
+            </p:dataTable>
+
+            <h3>Export Page Data Only</h3>
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/excel.png" />
+                <p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>
+            </h:commandLink>
+
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/pdf.png" />
+                <p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true" />
+            </h:commandLink>
+
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/csv.png" />
+                <p:dataExporter type="csv" target="tbl" fileName="cars" pageOnly="true" />
+            </h:commandLink>
+
+            <h:commandLink>
+                <p:graphicImage name="/demo/images/xml.png" />
+                <p:dataExporter type="xml" target="tbl" fileName="cars" pageOnly="true" />
+            </h:commandLink>
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="more-source-tabs">
+        <p:tab title="/org/primefaces/showcase/view/data/dataexporter/TextExporter.java" />
+    </ui:define>
+
+</ui:composition>

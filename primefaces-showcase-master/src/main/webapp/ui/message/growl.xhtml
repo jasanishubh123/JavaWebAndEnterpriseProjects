@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Growl
+    </ui:define>
+
+    <ui:define name="description">
+        Growl displays messages in an overlay.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/growl" />
+    <ui:param name="widgetLink" value="growl" />
+
+    <ui:define name="implementation">
+        
+        <h:form>           
+            <p:growl id="growl" showDetail="true" sticky="true" />  
+      
+            <p:panel header="Growl">  
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <p:outputLabel for="msg" value="Message:" />   
+                    <p:inputText id="msg" value="#{growlView.message}" required="true" />  
+                </h:panelGrid>  
+  
+                <p:commandButton value="Save" action="#{growlView.saveMessage}" update="@form" />
+            </p:panel>     
+        </h:form> 
+           
+    </ui:define>
+
+</ui:composition>

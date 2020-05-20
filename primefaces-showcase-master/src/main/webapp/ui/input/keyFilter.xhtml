@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        KeyFilter
+    </ui:define>
+
+    <ui:define name="description">
+        KeyFilter can be used to filter keyboard input on specified input components.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/keyfilter" />
+    <ui:param name="widgetLink" value="keyfilter" />
+
+    <ui:define name="implementation">
+
+        Predefined masks and their regular expressions:
+        <table>
+            <tr>
+                <td><strong>pint</strong></td>		
+                <td>/[\d]/</td>
+            </tr>
+            <tr>
+                <td><strong>int</strong></td>
+                <td>/[\d\-]/</td>
+            </tr>
+            <tr>
+                <td><strong>pnum</strong></td>
+                <td>/[\d\.]/</td>
+            </tr>
+            <tr>
+                <td><strong>money</strong></td>		
+                <td>/[\d\.\s,]</td>			
+            </tr>
+            <tr>
+                <td><strong>num</strong></td>		
+                <td>/[\d\-\.]/</td>			
+            </tr>
+            <tr>
+                <td><strong>hex</strong></td>		
+                <td>/[0-9a-f]/i</td>		
+            </tr>
+            <tr>
+                <td><strong>email</strong></td>		
+                <td>/[a-z0-9_\.\-@]/i</td>	
+            </tr>
+            <tr>
+                <td><strong>alpha</strong></td>		
+                <td>/[a-z_]/i</td>			
+            </tr>
+            <tr>
+                <td><strong>alphanum</strong></td>	
+                <td>/[a-z0-9_]/i</td>		
+            </tr>
+        </table>
+        
+        <br />
+        <br />
+        
+        <h:form>
+            <h:panelGrid columns="2">  
+                <h:outputText value="KeyFilter with regEx on a p:inputText" />  
+                <p:inputText id="text1">
+                    <p:keyFilter regEx="/[ABC]/i"/>  
+                </p:inputText>
+
+                <h:outputText value="KeyFilter with mask on a h:inputText"/>  
+                <h:inputText id="text2" /> 
+
+                <h:outputText value="KeyFilter with testFunction on a p:autoComplete" />  
+                <p:autoComplete id="autoComplete1" value="#{autoCompleteView.txt1}" completeMethod="#{autoCompleteView.completeText}" />  
+            </h:panelGrid>
+            
+            <p:keyFilter for="text2" mask="num"/>
+            <p:keyFilter for="autoComplete1" testFunction="return c == 'z';"/>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

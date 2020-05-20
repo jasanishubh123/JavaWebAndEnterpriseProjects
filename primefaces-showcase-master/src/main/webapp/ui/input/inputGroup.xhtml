@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">            
+            .white-button.ui-button.ui-state-default {
+                background-color: #ffffff;
+                color: #222222;
+                border-color: #d6d6d6;
+                /* with the exported variables from Nova and Luna Themes*/
+                border-color: var(--input-border-color, #d6d6d6);
+            }
+
+            .white-button.ui-button.ui-state-default:enabled:hover, 
+            .white-button.ui-button.ui-state-default:focus {
+                background-color: #f2f2f2;
+                border-color: #ccc;
+                color: #373a3c;
+                /* with the exported variables from Nova and Luna Themes*/
+                border-color: var(--input-hover-border-color, #ccc);
+            }
+
+            .green-button.ui-button.ui-state-default {
+                background-color: #5cb85c;
+                border-color: #5cb85c;
+                color: #fff;
+            }
+
+            .green-button.ui-button.ui-state-default:enabled:hover, 
+            .green-button.ui-button.ui-state-default:focus {
+                background-color: #4cae4c;
+                border-color: #5cb85c;
+            }
+
+            .red-button.ui-button.ui-state-default {
+                background-color: #d9534f;
+                border-color: #d9534f;
+                color: #fff;
+            }
+
+            .red-button.ui-button.ui-state-default:enabled:hover, 
+            .red-button.ui-button.ui-state-default:focus {
+                background-color: #d43f3a;
+                border-color: #d9534f;
+            }
+            
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        InputGroup
+    </ui:define>
+
+    <ui:define name="description">
+        Text, icon, buttons and other content can be grouped next to an input by wrapping the addons and input inside .ui-inputgroup element. Multiple addons can be used within the same group as well.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/inputgroup" />
+    <ui:param name="widgetLink" value="inputgroup" />
+
+    <ui:define name="implementation">
+
+        <h3 style="margin-top:0">Addons</h3>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                    <p:inputText placeholder="Username" />      
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">$</span>
+                    <p:inputText placeholder="Price" />
+                    <span class="ui-inputgroup-addon">.00</span>      
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">www</span>
+                    <p:inputText placeholder="Website" />   
+                </div>
+            </div>
+        </div>
+
+        <h3>Multiple Addons</h3>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-shopping-cart"></i></span>  
+                    <span class="ui-inputgroup-addon"><i class="pi pi-money-bill"></i></span>   
+                    <p:inputText placeholder="Price" />
+                    <span class="ui-inputgroup-addon">$</span>  
+                    <span class="ui-inputgroup-addon">.00</span>      
+                </div>
+            </div>
+        </div>
+
+        <h3>Button Addons</h3>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <p:commandButton value="Search"/> 
+                    <p:inputText placeholder="Keyword" />        
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <p:inputText placeholder="Keyboard" />
+                    <p:commandButton icon="pi pi-search"  styleClass="white-button"/>  
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <p:commandButton icon="pi pi-check" styleClass="green-button"/> 
+                    <p:inputText placeholder="Vote" />
+                    <p:commandButton icon="pi pi-times" styleClass="red-button"/>     
+                </div>
+            </div>
+        </div>
+
+        <h3>Checkbox</h3>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon-checkbox"><p:selectBooleanCheckbox /></span>
+                    <p:inputText placeholder="Username" />        
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Menu - <span class="subitem">Steps</span>
+    </ui:define>
+
+    <ui:define name="description">
+        Steps components is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/steps" />
+    <ui:param name="widgetLink" value="steps" />
+    
+      <ui:define name="head">
+          <f:facet name="first">
+        <style type="text/css">
+body .ui-steps .ui-steps-item {
+    width: 25%;
+}
+
+body .ui-state-highlight {
+    text-shadow: none !important;
+}
+
+body .ui-steps.custom {
+    margin-bottom: 30px;
+}
+
+body .ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+    overflow: visible;
+    border: 1px solid #c8c8c8;
+    display: block;
+    background-color: #FFFFFF;
+}
+
+body .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    position: relative;
+    top: -3px;
+}
+
+body .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-title {
+    margin-top: -6px;
+}
+
+body .ui-steps.custom .ui-steps-item.ui-state-highlight .ui-menuitem-link .ui-steps-title {
+    color: #555;
+}
+        </style>
+          </f:facet>
+	</ui:define>
+
+    <ui:define name="implementation">
+        
+        <h3 style="margin-top:0">Basic</h3>
+        <p:steps>
+            <p:menuitem value="Personal" />
+            <p:menuitem value="Seat Selection" />
+            <p:menuitem value="Payment" />
+            <p:menuitem value="Confirmation" />
+        </p:steps>
+        
+        <h3>Interactive</h3>
+        <p:steps activeIndex="1" styleClass="custom" readonly="false">
+            <p:menuitem value="Personal" url="#"/>
+            <p:menuitem value="Seat Selection" url="#"/>
+            <p:menuitem value="Payment" url="#"/>
+            <p:menuitem value="Confirmation" url="#"/>
+        </p:steps>
+    </ui:define>
+
+</ui:composition>

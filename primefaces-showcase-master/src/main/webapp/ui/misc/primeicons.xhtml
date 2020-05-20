@@ -1,0 +1,230 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .p-grid {
+                text-align: center;
+            }
+
+            .p-grid i {
+                vertical-align: middle;
+                padding-right: 5px;
+                font-size: 2em;
+            }
+            
+            .p-grid .icon-container:hover {
+                background-color: #EFF3F6;
+                cursor: pointer;
+            }
+            
+            .dark-content .p-grid .icon-container:hover {
+                background-color: #5e6061;
+            }
+            
+            .iconInfo {
+                background-color: #30383c;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                width: 260px;
+                color: #ffffff;
+                padding: 0 10px 5px;
+                display: none;
+                webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+                -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                z-index: 999999;
+            }
+            
+            .iconInfo .iconInfo-header {
+                position: relative;
+                border-bottom: 1px solid #e3e9ea;
+                padding: 5px;
+            }
+            
+            .iconInfo .iconInfo-close {
+                position: absolute;
+                right: 5px;
+                color: #ffffff;
+            }
+            
+            .iconInfo .icon-text {
+                padding-top: 5px;
+                padding-bottom: 2px;
+                font-size: 13px;
+            }
+            
+            .iconInfo .icon-sample-input {
+                width: 100%;
+                box-sizing: border-box;
+                margin-bottom: 5px;
+            }
+            
+            .iconInfo .icon-sample-input + i {
+                text-align: center;
+                display: block;
+                font-size: 30px;
+            }
+            
+            .iconInfo .copied-text {
+                display: none;
+                position: absolute;
+                right: 30px;
+                top: 7px;
+                color: #1b82d7;
+                font-weight: bold;
+            }
+        </style>
+        <script type="text/javascript">
+            //<![CDATA[
+            var grid = $('.p-grid'),
+                cols = grid.children('div'),
+                iconInfo = $('.iconInfo'),
+                copiedText = $('.copied-text'),
+                closeIcon = $('.closeInfo-close'),
+                colsClicked = false;
+        
+            $(function() {                
+                cols.off('click').on('click', function(e) {
+                    showIconInfo(e);
+                    colsClicked = true;
+                });
+                
+                $(document.body).off('click').on('click', function(e) {
+                    if(!colsClicked && iconInfo.is(':visible') && !iconInfo.has($(e.target)).length) {
+                        iconInfo.hide();
+                    }
+                    colsClicked = false;
+                });
+            });
+
+            function onFilter(e) {
+                var value = $(e.target).val();
+
+                if (value == "") {
+                    cols.show();
+                } 
+                else {
+                    cols.hide();
+                    cols.filter('[data-name*="' + value.toLowerCase() + '"]').show();
+                }
+            }
+            
+            function showIconInfo(e) {
+                var container = $(e.target),
+                iconName = "";
+                
+                if(!container.hasClass('icon-container')) {
+                    container = container.parent();
+                }
+
+                var iconName = container.data('name'),
+                iconKey = parseInt(container.data('key')).toString(16),
+                iconSampleInput = iconInfo.children('.icon-sample-input'),
+                iconSampleText = '<i class="pi pi-' + iconName + '"></i>';
+                
+                iconInfo.children('.icon-text').text('pi-' + iconName + " (code: \"\\" + iconKey + "\")");
+                iconSampleInput.val(iconSampleText);
+                iconSampleInput.next().remove().end().after(iconSampleText);
+                
+                if(iconInfo.is(':hidden')) {
+                    iconInfo.show();
+                }
+            }
+            
+            function copyText(e) {
+                $(e.target).select();
+                document.execCommand('copy');
+                copiedText.fadeIn('slow');
+                copiedText.fadeOut(2000);
+            }
+            
+            function closeInfo(e) {
+                iconInfo.hide();
+                colsClicked = false;
+                e.preventDefault();
+            }
+            //]]>
+        </script>
+    </ui:define>
+
+    <ui:define name="title">
+        PrimeIcons
+    </ui:define>
+
+    <ui:define name="description">
+        <h:outputLink value="https://github.com/primefaces/primeicons">PrimeIcons</h:outputLink> is a font icon library for PrimeTek UI libraries such as PrimeFaces.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/core/fonticons" />
+
+    <ui:define name="implementation">
+        <h3 style="margin-top:0">Getting Started</h3>
+        <p>PrimeIcons was introduced in version 6.2.11 or higher. To use it you must include the CSS on your page</p>
+        <pre name="code" class="brush:xml">
+        &lt;h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" /&gt;
+        </pre>
+
+        <h3>Usage</h3>
+        <p>PrimeIcons use the pi pi-{icon} syntax such as pi pi-check. A standalone icon can be displayed using an element such as i or span</p>
+        <pre name="code" class="brush:xml">
+        &lt;i class="pi pi-check"&gt;&lt;/i&gt;
+        &lt;i class="pi pi-times"&gt;&lt;/i&gt;
+        </pre>
+        <i class="pi pi-check"></i>
+        <i class="pi pi-times"></i>
+
+        <h3>Size</h3>
+        <p>Size of the icons can easily be changed using font-size property.</p>
+        <pre name="code" class="brush:xml">
+        &lt;i class="pi pi-check"&gt;&lt;/i&gt;
+        </pre>
+        <i class="pi pi-check"></i>
+        <pre name="code" class="brush:xml">
+        &lt;i class="pi pi-check" style="font-size: 3em"&gt;&lt;/i&gt;
+        </pre>
+        <i class="pi pi-check" style="font-size: 3em"></i>
+
+        <h3>Spinning Animation</h3>
+        <p>Special pi-spin class applies infinite rotate to an icon.</p>
+        <pre name="code" class="brush:xml">
+        &lt;i class="pi pi-spin pi-spinner" style="font-size: 3em"&gt;&lt;/i&gt;
+        </pre>
+        <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+
+        <h3>List of Icons</h3>
+        <p>Here is the current list of PrimeIcons, more icons will be added periodically. You may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
+
+        <p:inputText onkeyup="onFilter(event)" style="width:100%; margin: 16px 0px 26px; padding: 1em;" placeholder="Search an icon" />
+
+        <div class="p-grid">
+            <ui:repeat value="#{primeIconsView.icons}" var="icon">
+                <div class="p-col-12 p-md-3 p-lg-2 icon-container" data-name="#{icon.name}" data-key="#{icon.key}">
+                    <i class="pi pi-#{icon.name}"></i>
+                    <div>#{icon.name}</div>
+                </div>
+            </ui:repeat>
+        </div>
+        
+        <div class="iconInfo">
+            <div class="iconInfo-header">
+                <span>Selected Icon Info</span>
+                <a href="#" class="iconInfo-close" onclick="closeInfo(event)">
+                    <i class="pi pi-times"></i>
+                </a>
+                <span class="copied-text">Copied!</span>
+            </div>
+            <div class="icon-text"></div>
+            <p:inputText styleClass="icon-sample-input" readonly="true" onclick="copyText(event)"/>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

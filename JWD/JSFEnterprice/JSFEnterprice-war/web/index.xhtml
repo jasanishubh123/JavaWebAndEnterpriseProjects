@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:dataTable id="dt" value="#{empManagedBean.emps}" var="e" border="2">
+                <f:facet name="header">
+                   <h:outputText value="This is 'dataTable' demo" />
+                </f:facet>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Employee Name"/> 
+                    </f:facet>
+                    <h:outputText value="#{e.employeeName}"/>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Password"/> 
+                    </f:facet>
+                     <h:outputText value="#{e.password}"/>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Salary"/> 
+                    </f:facet>
+                     <h:outputText value="#{e.salary}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Department"/> 
+                    </f:facet>
+                    <h:outputText value="#{e.departmentID.departmentName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Delete"/> 
+                    </f:facet>
+                    <h:outputText value="#{e.empID}"/>
+                    <h:commandLink action="#{empManagedBean.DeleteEmp(e.empID)}" value="Delete" ></h:commandLink>
+                </h:column>
+                 <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Edit"/> 
+                    </f:facet>
+                  <h:commandLink action="#{empManagedBean.EditEmp(e.empID)}" value="Edit" ></h:commandLink>
+
+                </h:column>
+            
+            </h:dataTable>
+            
+            
+            
+            
+            
+            
+            
+        </h:form>
+    </h:body>
+</html>
+

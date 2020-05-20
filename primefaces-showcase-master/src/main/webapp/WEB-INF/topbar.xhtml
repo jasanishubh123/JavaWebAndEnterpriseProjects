@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <a id="menu-button" href="#">
+            <i class="pi pi-bars"></i>
+        </a>
+        <h:link class="logo-container" outcome="/index.xhtml">
+            <p:graphicImage name="images/primefaces-logo.png" library="showcase" />
+        </h:link>
+
+        <ul class="topbar-menu">
+            <li>
+                <h:link outcome="/getstarted">Get Started</h:link>
+            </li>
+            <li class="topbar-submenu">
+                <a href="#">Themes</a>
+                <div class="topbar-themes-submenu">
+                    <ul>
+                        <li class="topbar-submenu-header">THEMING</li>
+                        <li><a href="https://www.primefaces.org/designer/primefaces"><i class="pi pi-fw pi-palette" /><span>Designer</span></a></li>
+                        <li><h:link outcome="/ui/misc/primeicons"><i class="pi pi-fw pi-info-circle"/><span>Icons</span></h:link></li>
+                    </ul>
+                    <h:form prependId="false">
+                        <p:growl id="selectedThemeGrowl" showDetail="true" severity="info" escape="false" />
+                        <ul class="themes-overlay">
+                            <li class="topbar-submenu-header">FREE COMPONENT THEMES</li>
+                            <ui:repeat value="#{themeSwitcherView.themes}" var="theme">
+                                <li>
+                                    <a href="#" data-theme="#{theme.name}"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{theme.name}.png" alt="#{theme.name}"/><span>#{theme.displayName}</span></a>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                        <p:remoteCommand name="changeTheme" action="#{guestPreferences.changeTheme}" update="selectedThemeGrowl" />
+                    </h:form>
+                </div>
+            </li>
+            <li class="topbar-submenu">
+                <a href="#">Templates</a>
+                <ul>
+                    <li class="topbar-submenu-header">PREMIUM ADMIN TEMPLATES</li>
+                    <li><a href="https://www.primefaces.org/layouts/siberia"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-siberia.png" alt="Siberia"/><span>Siberia</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/mirage"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-mirage.png" alt="Mirage"/><span>Mirage</span><span class="theme-badge bootstrap">bootstrap</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/prestige"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-prestige.png" alt="Prestige"/><span>Prestige</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/sapphire"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-sapphire.png" alt="Sapphire"/><span>Sapphire</span><span class="theme-badge material">material</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/roma"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-roma.jpg" alt="Roma"/><span>Roma</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/babylon"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-babylon.png" alt="Babylon"/><span>Babylon</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/olympia"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-olympia.png" alt="Olympia"/><span>Olympia</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/ecuador"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-ecuador.png" alt="Ecuador"/><span>Ecuador</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/harmony"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-harmony.png" alt="Harmony"/><span>Harmony</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/california"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-california.png" alt="California"/><span>California</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/apollo"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-apollo.png" alt="Apollo"/><span>Apollo</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/serenity"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-serenity.png" alt="Serenity"/><span>Serenity</span><span class="theme-badge material">material</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/avalon"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-avalon.png" alt="Avalon"/><span>Avalon</span><span class="theme-badge bootstrap">bootstrap</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/ultima"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-ultima.png" alt="Ultima"/><span>Ultima</span><span class="theme-badge material">material</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/paradise"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-paradise.png" alt="Paradise"/><span>Paradise</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/barcelona"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-barcelona.png" alt="Barcelona"/><span>Barcelona</span><span class="theme-badge material">material</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/manhattan"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-manhattan.png" alt="Manhattan"/><span>Manhattan</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/morpheus"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-morpheus.png" alt="Morpheus"/><span>Morpheus</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/atlantis"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-atlantis.png" alt="Atlantis"/><span>Atlantis</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/verona"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-verona.png" alt="Verona"/><span>Verona</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/icarus"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-icarus.png" alt="Icarus"/><span>Icarus</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/poseidon"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-poseidon.png" alt="Poseidon"/><span>Poseidon</span></a></li>
+                    <li><a href="https://www.primefaces.org/layouts/omega"><h:graphicImage name="showcase/images/themeswitcher/themeswitcher-omega.png" alt="Omega"/><span>Omega</span></a></li>
+                </ul>
+            </li>
+            <li class="topbar-submenu topbar-resources-submenu">
+                <a href="#">Resources</a>
+                <ul>
+                    <li><a href="https://www.primefaces.org/support/" target="_blank"><span>Support</span></a></li>
+                    <li><a href="https://github.com/primefaces/primefaces" target="_blank"><span>Source Code</span></a></li>
+                    <li><a href="https://www.primefaces.org/store" target="_blank"><span>PrimeStore</span></a></li>
+                    <li><a href="https://www.primefaces.org/category/primefaces/" target="_blank"><span>Blog</span></a></li>
+                    <li><a href="https://twitter.com/primefaces?lang=en" target="_blank"><span>Twitter</span></a></li>
+                    <li><a href="https://www.primefaces.org/whouses/" target="_blank"><span>Who Uses</span></a></li>
+                    <li><a href="https://www.primefaces.org/newsletter" target="_blank"><span>Newsletter</span></a></li>
+                    <li><a href="https://www.primetek.com.tr" target="_blank"><span>About PrimeTek</span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</ui:composition>

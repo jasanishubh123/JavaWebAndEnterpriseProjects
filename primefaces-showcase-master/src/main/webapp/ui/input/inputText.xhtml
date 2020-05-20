@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        InputText
+    </ui:define>
+
+    <ui:define name="description">
+        InputText extends standard InputText with skinning capabilities.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/inputtext" />
+    <ui:param name="widgetLink" value="inputtext" />
+
+    <ui:define name="implementation">
+       
+        <h:form>            
+            <h3>Basic</h3>
+            <p:inputText />
+        
+           <h3>Floating Label</h3>
+           <span class="ui-float-label">
+               <p:inputText id="float-input" value="#{basicView.text}" />
+               <p:outputLabel for="@previous" value="Username" />
+           </span>
+
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

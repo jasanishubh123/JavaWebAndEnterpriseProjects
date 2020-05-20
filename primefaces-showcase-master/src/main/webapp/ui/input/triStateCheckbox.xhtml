@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        TriStateCheckbox
+    </ui:define>
+
+    <ui:define name="description">
+        TriStateCheckbox add a new state to a checkbox value.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/tristatecheckbox" />
+    <ui:param name="widgetLink" value="tristatecheckbox" />
+
+    <ui:define name="implementation">
+        
+        <h:form>
+            <p:growl id="growl" showDetail="true"/>  
+
+            <h:panelGrid id="triStateGrid" columns="2" cellpadding="5">  
+                <h:outputText value="Basic Usage: "/>  
+                <p:triStateCheckbox value="#{triStateCheckboxView.value1}"/>  
+
+                <h:outputText value="Ajax Behavior: "/>  
+                <p:triStateCheckbox id="ajaxTriState" value="#{triStateCheckboxView.value2}">  
+                    <p:ajax event="change" update="growl" listener="#{triStateCheckboxView.addMessage}"/>  
+                </p:triStateCheckbox>  
+
+                <h:outputText value="Customs Icons: "/>  
+                <p:triStateCheckbox value="#{triStateCheckboxView.value3}"  
+                                     stateTwoIcon="pi pi-plus"  
+                                     stateThreeIcon="pi pi-minus"/>  
+
+                <h:panelGroup/>  
+                <p:triStateCheckbox value="#{triStateCheckboxView.value4}" itemLabel="Item Label"/>                  
+            </h:panelGrid>  
+
+            <p:commandButton value="Submit" process="triStateGrid" update="display" oncomplete="PF('dlg').show()"  
+                             style="margin-top:10px;"/>  
+       
+
+            <p:dialog header="Selected Values" showEffect="fade" hideEffect="fade" widgetVar="dlg">  
+                <h:panelGrid id="display" columns="1" style="margin: 10px;">  
+                    <h:outputText value="Value 1: #{triStateCheckboxView.value1}"/>  
+                    <h:outputText value="Value 2: #{triStateCheckboxView.value2}"/>  
+                    <h:outputText value="Value 3: #{triStateCheckboxView.value3}"/>  
+                    <h:outputText value="Value 4: #{triStateCheckboxView.value4}"/>  
+                </h:panelGrid>  
+            </p:dialog>  
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

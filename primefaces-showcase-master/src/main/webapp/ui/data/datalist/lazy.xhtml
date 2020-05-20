@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .logo {
+            }
+
+            .detail {
+                width: 200px;
+                padding-left: 25px;
+            }
+
+            .command {
+                padding-left: 25px;
+            }
+
+            ul.ui-datalist-data {
+                padding-inline-start: 0px;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        DataList - <span class="subitem">Lazy</span>
+    </ui:define>
+
+    <ui:define name="description">
+        DataList has built-in support to deal with huge datasets. In order to enable lazy loading, a LazyDataModel needs to be implemented
+        to query the datasource when pagination happens. This example uses an in-memory list to mimic a real datasource like a database.
+        <p><strong>In a real application, loading should be executed with the query built using the information passed to the load method.</strong></p>
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/datalist" />
+    <ui:param name="widgetLink" value="datalist" />
+
+    <ui:define name="implementation">
+
+        <h:form id="form">
+            <p:dataList value="#{dtLazyView.lazyModel}" var="car" lazy="true" type="unordered" itemType="none" style="width: 450px"
+                        paginator="true" rows="5" rowsPerPageTemplate="5,10,20" pageLinks="5"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <h:panelGrid columns="3" columnClasses="logo,detail">
+                    <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />
+
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{car.id}" style="font-weight: bold"/>
+
+                            <h:outputText value="Year:" />
+                            <h:outputText value="#{car.year}" style="font-weight: bold"/>
+
+                            <h:outputText value="Color:" />
+                            <h:outputText value="#{car.color}" style="font-weight: bold"/>
+                        </h:panelGrid>
+                    </p:outputPanel>
+
+                    <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+                        <f:setPropertyActionListener value="#{car}" target="#{dtLazyView.selectedCar}" />
+                    </p:commandLink>
+                </h:panelGrid>
+            </p:dataList>
+
+            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty dtLazyView.selectedCar}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <p:graphicImage name="demo/images/car/#{dtLazyView.selectedCar.brand}-big.gif"/>
+                        </f:facet>
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{dtLazyView.selectedCar.id}" />
+
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{dtLazyView.selectedCar.year}" />
+
+                        <h:outputText value="Color:" />
+                        <h:outputText value="#{dtLazyView.selectedCar.color}" style="color:#{dtLazyView.selectedCar.color}"/>
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="$#{dtLazyView.selectedCar.price}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

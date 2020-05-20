@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Link Button
+    </ui:define>
+
+    <ui:define name="description">
+        LinkButton a simple link, which is styled as a button and integrated with JSF navigation model.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/linkbutton" />
+    <ui:param name="widgetLink" value="linkbutton" />
+
+    <ui:define name="implementation">
+
+        <p:linkButton outcome="productDetail" value="Bookmark" style="margin-right:20px;">
+            <f:param name="productId" value="10" />
+        </p:linkButton>
+
+        <p:linkButton outcome="productDetail" value="Bookmark new tab" style="margin-right:20px;" target="_blank">
+            <f:param name="productId" value="10" />
+        </p:linkButton>
+
+        <p:linkButton outcome="productDetail" value="With Icon" icon="pi pi-star" style="margin-right:20px;">
+            <f:param name="productId" value="20" />
+        </p:linkButton>
+
+        <p:linkButton outcome="productDetail" icon="pi pi-star" style="margin-right:20px;" title="Icon Only">
+            <f:param name="productId" value="30" />
+        </p:linkButton>
+
+        <p:linkButton outcome="productDetail" value="With Icon" disabled="true" style="margin-right:20px;">
+            <f:param name="productId" value="40" />
+        </p:linkButton>
+
+        <p:linkButton outcome="productDetail" value="Bookmark" icon="pi pi-star" disabled="true" style="margin-right:20px;">
+            <f:param name="productId" value="50" />
+        </p:linkButton>
+
+        <p:linkButton outcome="productDetail" icon="pi pi-star" style="margin-right:20px;" disabled="true" title="Icon Only">
+            <f:param name="productId" value="60" />
+        </p:linkButton>
+    </ui:define>
+
+</ui:composition>

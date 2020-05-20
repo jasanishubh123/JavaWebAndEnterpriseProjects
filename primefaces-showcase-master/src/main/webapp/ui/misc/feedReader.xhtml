@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        FeedReader
+    </ui:define>
+
+    <ui:define name="description">
+        FeedReader retrieves and displays content from a feed.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/feedreader" />
+    <ui:param name="widgetLink" value="feedreader" />
+
+    <ui:define name="implementation">
+        <p:feedReader value="https://www.nasa.gov/rss/dyn/breaking_news.rss" var="feed">
+            <h:outputText value="#{feed.title}" style="font-weight: bold;display:block"/>
+            <h:outputText value="#{feed.description.value}" escape="false"/>
+            <p:separator />
+            <f:facet name="error">
+                <h:outputText value="Error reading RSS Feed!!!" style="color:red;"/>
+            </f:facet>
+        </p:feedReader>
+    </ui:define>
+
+</ui:composition>

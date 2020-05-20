@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-state-active {
+                background-color: #005b9f;
+            }
+            
+            .ui-state-highlight {
+                background-color: #007ad9;
+            }
+        </style>
+        <script type="text/javascript">
+            function initDND() {
+                $('.ui-treenode-leaf').draggable({
+                   helper: 'clone',
+                   scope: 'treetotable',
+                   zIndex: ++PrimeFaces.zindex
+                });
+
+                $('.ui-datatable .droppoint').droppable({
+                   activeClass: 'ui-state-active',
+                   hoverClass: 'ui-state-highlight',
+                   tolerance: 'pointer',
+                   scope: 'treetotable',
+                   drop: function(event, ui) {
+                       var property = ui.draggable.find('.ui-treenode-label').text(),
+                       droppedColumnId = $(this).parents('th:first').attr('id'),
+                       dropPos = $(this).hasClass('dropleft') ? 0 : 1;
+
+                       treeToTable([
+                            {name: 'property', value:  property}
+                           ,{name: 'droppedColumnId', value: droppedColumnId}
+                           ,{name: 'dropPos', value: dropPos}
+                       ]);
+                   }
+                });
+
+                $('.ui-datatable th').draggable({
+                   scope: 'tabletotree',
+                   helper: function() {
+                       var th = $(this);
+
+                       return th.clone().appendTo(document.body).css('width', th.width());
+                   }
+                });
+
+                $('.ui-tree').droppable({
+                   helper: 'clone',
+                   scope: 'tabletotree',
+                   activeClass: 'ui-state-active',
+                   hoverClass: 'ui-state-highlight',
+                   tolerance: 'touch',
+                   drop: function(event, ui) {                               
+                       tableToTree([
+                           {name: 'colIndex', value:  ui.draggable.index()}
+                       ]);
+                   }
+                });
+            }
+
+            $(function() {
+                initDND();
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="title">
+        DragDrop - <span class="subitem">Custom</span>
+    </ui:define>
+
+    <ui:define name="description">
+        This sample demonstrates how to extend PrimeFaces with javascript. Tree component displays the available columns which are draggable. 
+        where as column headers have drop targets and dropping a treenode onto one of these adds the related property column to the datatable. 
+        Column headers can also be moved back to the tree.
+    </ui:define>
+
+    <ui:define name="implementation">
+        
+        <h:form id="form">
+            <p:remoteCommand name="treeToTable" action="#{columnManagerView.treeToTable}" update="tree cars" oncomplete="initDND()"/>
+            <p:remoteCommand name="tableToTree" action="#{columnManagerView.tableToTree}" update="tree cars" oncomplete="initDND()"/>
+
+            <p:tree id="tree" value="#{columnManagerView.availableColumns}" var="column" style="margin-bottom:20px">
+                <p:treeNode>
+                    <h:outputText value="#{column}" />
+                </p:treeNode>
+
+                <p:treeNode type="column" icon="pi pi-ellipsis-v">
+                    <h:outputText value="#{column.property}" />
+                </p:treeNode>
+            </p:tree>
+
+            <p:dataTable id="cars" var="car" value="#{columnManagerView.cars}">                    
+                <p:columns value="#{columnManagerView.columns}" var="column">
+                    <f:facet name="header">
+                        <h:outputText style="float:left;display:block;height:20px;width:10px;border:0 none;" styleClass="droppoint dropleft" />                           
+                        <h:outputText style="float:right;display:block;height:20px;width:10px;border:0 none;" styleClass="droppoint dropright" />
+                        <h:outputText value="#{column.header}" />
+                    </f:facet>
+
+                    <h:outputText value="#{car[column.property]}" />
+                </p:columns>
+            </p:dataTable>
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

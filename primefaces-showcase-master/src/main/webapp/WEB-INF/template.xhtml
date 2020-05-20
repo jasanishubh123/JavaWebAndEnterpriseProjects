@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:sc="http://primefaces.org/ui/showcase"
+      lang="en">
+
+    <h:head>
+        <f:facet name="first">
+            <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-93461466-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-93461466-1');
+            </script>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes"/>
+            <link href="#{resource['showcase/images/favicon-32x32.png']}" rel="icon" type="image/png" sizes="32x32"/>
+            <link href="#{resource['showcase/images/favicon-16x16.png']}" rel="icon" type="image/png" sizes="16x16"/>
+        </f:facet>
+        <title>PrimeFaces Showcase</title>
+
+        <h:outputStylesheet name="css/sh.css" library="showcase"/>
+        <h:outputStylesheet name="css/nanoscroller.css" library="showcase"/>
+        <h:outputStylesheet name="css/primeflex.css" library="showcase"/>
+
+        <!-- For Community Themes except 'Luna' and 'Nova' theme -->
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+
+
+        <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+        <h:outputScript name="script/nanoscroller.js" library="showcase"/>
+        <h:outputScript name="script/layout.js" library="showcase"/>
+
+        <ui:insert name="head"/>
+        
+    </h:head>
+
+    <h:body>
+        <div class="layout-wrapper">
+            <!--<div class="layout-notification">
+                <a href="https://www.primefaces.org/store">
+                    <h:graphicImage name="showcase/images/asset-1-endofyear-2019.png" alt="New Year"/>
+                    <span class="layout-notification-details">
+                        <span class="helper-text">NEW YEAR SALE</span> SAVE UP TO <span class="rate">60%</span> AT PRIMESTORE!
+                    </span>
+                </a>
+            </div>-->
+            
+            <div class="layout-news">
+                <div class="layout-news-container">
+                    <h:graphicImage name="showcase/images/news/topbar-siberia-device.png" alt="Siberia"/>
+                    <a href="https://www.primefaces.org/store" target="_blank" class="layout-news-button">
+                        SHOP NOW<i class="pi pi-angle-right"></i>
+                    </a>
+                    <a href="#" class="layout-news-close">
+                        <i class="pi pi-times"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <ui:include src="./topbar.xhtml"></ui:include>
+            <ui:include src="./menu.xhtml"></ui:include>
+
+            <div class="layout-content">
+                <ui:insert name="content">
+                    <div class="content-section content-submenu">
+                        <ui:insert name="submenu"></ui:insert>
+                    </div>
+                    <div class="content-section content-introduction">
+                        <h1><ui:insert name="title"></ui:insert></h1>
+                        <p><ui:insert name="description"></ui:insert></p>
+                        <a class="documentation-link" href="https://primefaces.github.io/primefaces/9_0/##{documentationLink}" target="_blank">
+                            <i class="pi pi-external-link"></i> 
+                            Documentation
+                        </a>
+                        <span jsf:rendered="#{not empty widgetLink}">
+                            <a class="documentation-link" href="https://primefaces.github.io/primefaces/jsdocs/classes/primefaces.widget.#{widgetLink}.html" target="_blank">
+                                <i class="pi pi-external-link"></i> 
+                                Widget
+                            </a>
+                        </span>
+                    </div>
+                    <div class="content-section content-implementation #{guestPreferences.theme.startsWith('luna') ? 'dark-content' : null}">
+                        <ui:insert name="implementation"></ui:insert>
+                    </div>
+                    <div class="content-section content-source">
+                        <ui:insert name="source">
+                            <sc:tabscode
+                                    value="#{sc:getFilesContent(facesContext.externalContext.requestServletPath, true)}">
+                                <ui:insert name="more-source-tabs"/>
+                            </sc:tabscode>
+                        </ui:insert>
+                    </div>
+                </ui:insert>
+            </div>
+
+            <ui:include src="./config.xhtml"></ui:include>
+            <ui:include src="./footer.xhtml"></ui:include>
+            <div class="layout-mask"></div>
+
+        </div>
+
+        <ui:insert name="status">
+            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+                <f:facet name="start">
+                    <i class="pi pi-spin pi-spinner ajax-loader" aria-hidden="true"></i>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+        </ui:insert>
+
+        <ui:insert name="highlight">
+            <h:outputScript name="showcase/script/sh.js" target="body"/>
+        </ui:insert>
+
+        <ui:insert name="body"></ui:insert>
+
+        <h:outputStylesheet name="css/layout.css" library="showcase"/>
+    </h:body>
+
+</html>

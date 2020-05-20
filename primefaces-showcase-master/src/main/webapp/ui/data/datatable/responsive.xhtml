@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+
+    <ui:define name="title">
+        DataTable - <span class="subitem">Responsive</span>
+    </ui:define>
+
+    <ui:define name="description">
+        DataTable has two responsive modes. In priority mode, visibility of columns are toggled based on the screen size and their priority (1-6). On the other hand
+        in reflow mode, columns are displayed as stacked on smaller screens.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/datatable" />
+    <ui:param name="widgetLink" value="datatable" />
+
+    <ui:define name="implementation">
+        <h:form>
+        <h3 style="margin-top:0">Column Priority</h3>
+        <p:dataTable var="car" value="#{dtBasicView.cars}">
+            <p:column headerText="Id">
+                <h:outputText value="#{car.id}" />
+            </p:column>
+
+            <p:column headerText="Year (p3)" priority="3">
+                <h:outputText value="#{car.year}" />
+            </p:column>
+
+            <p:column headerText="Brand (p2)" priority="2">
+                <h:outputText value="#{car.brand}" />
+            </p:column>
+
+            <p:column headerText="Color (p4)" priority="4">
+                <h:outputText value="#{car.color}" />
+            </p:column>
+        </p:dataTable>
+        
+        <h3>Reflow</h3>
+        <p:dataTable var="car" value="#{dtBasicView.cars}" reflow="true" rows="5" paginator="true">
+            <p:column headerText="Id">
+                <h:outputText value="#{car.id}" />
+            </p:column>
+
+            <p:column headerText="Year">
+                <h:outputText value="#{car.year}" />
+            </p:column>
+
+            <p:column headerText="Brand">
+                <h:outputText value="#{car.brand}" />
+            </p:column>
+
+            <p:column headerText="Color">
+                <h:outputText value="#{car.color}" />
+            </p:column>
+        </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

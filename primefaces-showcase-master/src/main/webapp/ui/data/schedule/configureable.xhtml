@@ -1,0 +1,162 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .value {
+                width: 1000px;
+            }
+        </style>
+    </ui:define>
+    
+    <ui:define name="title">
+        Schedule - <span class="subitem">Configurable</span>
+    </ui:define>
+
+    <ui:define name="description">
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/schedule" />
+    <ui:param name="widgetLink" value="schedule" />
+
+    <ui:define name="implementation">
+
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+
+            <p:panel header="Settings">
+                <p:panelGrid columns="2" layout="flex" styleClass="ui-noborder" columnClasses="p-col-12 p-xl-6, p-col-12 p-xl-6">
+                    <p:selectBooleanCheckbox value="#{scheduleJava8View.showWeekends}" itemLabel="show weekends">
+                        <p:ajax update="schedule" />
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{scheduleJava8View.tooltip}" itemLabel="show tooltips">
+                        <p:ajax update="schedule" />
+                    </p:selectBooleanCheckbox>
+                    <p:selectBooleanCheckbox value="#{scheduleJava8View.allDaySlot}" itemLabel="show all-day slot (timeGridWeek and timeGridDay)">
+                        <p:ajax update="schedule" />
+                    </p:selectBooleanCheckbox>
+                </p:panelGrid>
+
+                <p:panelGrid columns="4" layout="flex" styleClass="ui-noborder" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4">
+                    <p:outputLabel value="timeFormat (eg HH:mm:ss)" for="timeFormat" />
+                    <p:inputText id="timeFormat" value="#{scheduleJava8View.timeFormat}">
+                        <p:ajax update="schedule" />
+                    </p:inputText>
+
+                    <p:outputLabel value="slotDuration" for="slotDuration" />
+                    <p:inputText id="slotDuration" value="#{scheduleJava8View.slotDuration}">
+                        <p:ajax update="schedule" />
+                    </p:inputText>
+
+                    <p:outputLabel value="slotLabelInterval" for="slotLabelInterval" />
+                    <p:inputText id="slotLabelInterval" value="#{scheduleJava8View.slotLabelInterval}">
+                        <p:ajax update="schedule" />
+                    </p:inputText>
+
+                    <p:outputLabel value="scrollTime" for="scrollTime" />
+                    <p:inputText id="scrollTime" value="#{scheduleJava8View.scrollTime}">
+                        <p:ajax update="schedule" />
+                    </p:inputText>
+
+                    <p:outputLabel value="minTime" for="minTime" />
+                    <p:inputText id="minTime" value="#{scheduleJava8View.minTime}">
+                        <p:ajax update="schedule" />
+                    </p:inputText>
+
+                    <p:outputLabel value="maxTime" for="maxTime" />
+                    <p:inputText id="maxTime" value="#{scheduleJava8View.maxTime}">
+                        <p:ajax update="schedule" />
+                    </p:inputText>
+
+                    <p:outputLabel value="locale (some examples)" for="locale" />
+                    <p:selectOneMenu id="locale" value="#{scheduleJava8View.locale}">
+                        <f:selectItem itemLabel="Englisch" itemValue="en" />
+                        <f:selectItem itemLabel="French" itemValue="fr" />
+                        <f:selectItem itemLabel="German" itemValue="de" />
+                        <f:selectItem itemLabel="Turkish" itemValue="tr" />
+
+                        <p:ajax update="schedule" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="timeZone (some examples)" for="timeZone" />
+                    <p:selectOneMenu id="timeZone" value="#{scheduleJava8View.timeZone}">
+                        <f:selectItem itemLabel="ZoneId.systemDefault()" />
+                        <f:selectItem itemLabel="UTC" itemValue="UTC"  />
+                        <f:selectItem itemLabel="GMT-5" itemValue="GMT-5" />
+                        <f:selectItem itemLabel="GMT+13" itemValue="GMT+13" />
+
+                        <p:ajax update="schedule" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="clientTimeZone" for="clientTimeZone" />
+                    <p:selectOneMenu id="clientTimeZone" value="#{scheduleJava8View.clientTimeZone}">
+                        <f:selectItem itemLabel="local" itemValue="local" />
+                        <f:selectItem itemLabel="UTC" itemValue="UTC" />
+                        <f:selectItem itemLabel="America/New_York" itemValue="America/New_York" />
+                        <f:selectItem itemLabel="Europe/Moscow" itemValue="Europe/Moscow" />
+
+                        <p:ajax update="schedule" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="columnHeaderFormat" for="columnHeaderFormat" />
+                    <p:selectOneMenu id="columnHeaderFormat" value="#{scheduleJava8View.columnHeaderFormat}" autoWidth="false">
+                        <f:selectItem itemLabel="" itemValue="" />
+                        <f:selectItem itemLabel="week:'dd DD MMM'" itemValue="week:'dd DD MMM'" />
+                        <f:selectItem itemLabel="day: 'dd'" itemValue="day: 'dd'" />
+                        <f:selectItem itemLabel="timeGridWeek: 'DD MM'" itemValue="timeGridWeek: 'DD MM'" />
+                        <f:selectItem itemLabel="timeGridWeek: { weekday: 'long', month: 'numeric', day: 'numeric', omitCommas: true}" itemValue="timeGridWeek: { weekday: 'long', month: 'numeric', day: 'numeric', omitCommas: true}" />
+                        <f:selectItem itemLabel="timeGridWeek: 'DD MM', timeGridDay: 'dd'" itemValue="timeGridWeek: 'DD MM', timeGridDay: 'dd'" />
+                        <f:selectItem itemLabel="listYear: 'dd.MM.yyyy'" itemValue="listYear: 'dd.MM.yyyy'" />
+
+                        <p:ajax update="schedule" />
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </p:panel>
+
+            <p></p>
+
+            <h:panelGrid columnClasses="value">
+                <p:schedule id="schedule" value="#{scheduleJava8View.eventModel}" widgetVar="myschedule" view="timeGridWeek"
+                            locale="#{scheduleJava8View.locale}" timeZone="#{scheduleJava8View.timeZone}" clientTimeZone="#{scheduleJava8View.clientTimeZone}"
+                            rightHeaderTemplate="dayGridMonth,timeGridWeek,timeGridDay,listYear"
+                            showWeekends="#{scheduleJava8View.showWeekends}" tooltip="#{scheduleJava8View.tooltip}" allDaySlot="#{scheduleJava8View.allDaySlot}"
+                            timeFormat="#{scheduleJava8View.timeFormat}" slotDuration="#{scheduleJava8View.slotDuration}"
+                            slotLabelInterval="#{scheduleJava8View.slotLabelInterval}" scrollTime="#{scheduleJava8View.scrollTime}"
+                            minTime="#{scheduleJava8View.minTime}" maxTime="#{scheduleJava8View.maxTime}"
+                            columnHeaderFormat="#{scheduleJava8View.columnHeaderFormat}" initialDate="#{scheduleJava8View.initialDate}">
+
+                    <p:ajax event="dateSelect" listener="#{scheduleJava8View.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventSelect" listener="#{scheduleJava8View.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventMove" listener="#{scheduleJava8View.onEventMove}" update="messages" />
+                    <p:ajax event="eventResize" listener="#{scheduleJava8View.onEventResize}" update="messages" />
+
+                </p:schedule>
+            </h:panelGrid>
+            
+            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                <h:panelGrid id="eventDetails" columns="2">
+                    <p:outputLabel for="title" value="Titles:" />
+                    <p:inputText id="title" value="#{scheduleJava8View.event.title}" required="true" />
+
+                    <p:outputLabel for="from" value="From:" />
+                    <p:datePicker id="from" value="#{scheduleJava8View.event.startDate}" pattern="dd/MM/yyyy" showTime="true" appendTo="@(body)"  />
+
+                    <p:outputLabel for="to" value="To:" />
+                    <p:datePicker id="to" value="#{scheduleJava8View.event.endDate}" pattern="dd/MM/yyyy" showTime="true" appendTo="@(body)" />
+
+                    <p:outputLabel for="allDay" value="All Day (see #1164):" />
+                    <h:selectBooleanCheckbox id="allDay" value="#{scheduleJava8View.event.allDay}" />
+
+                    <p:commandButton type="reset" value="Reset" />
+                    <p:commandButton id="addButton" value="Save" action="#{scheduleJava8View.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                </h:panelGrid>
+            </p:dialog>    
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

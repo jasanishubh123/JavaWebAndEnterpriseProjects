@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Client Side Validation - <span class="subitem">Basic</span>
+    </ui:define>
+
+    <ui:define name="description">
+        Client Side Validation Framework implements JSF validation API within the browser.
+        <ul style="margin-bottom:0; color: white;">
+            <li>Compatible with Server Side Implementation.</li>
+            <li>Conversion and Validation happens at client side.</li>
+            <li>Partial Processing support for Ajax.</li>
+            <li>I18n support along with component specific messages.</li>
+            <li>Client side Renderers for message components.</li>
+            <li>Easy to write custom client converters and validators.</li>
+            <li>Global or Component based enable/disable.</li>
+            <li>Little footprint using HTML5.</li>
+            <li>Advanced Bean Validation Integration.</li>
+        </ul>
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/core/clientsidevalidation" />
+
+    <ui:define name="implementation">
+
+        <h:form>
+            <p:panel header="Validate">
+                <p:messages>
+                    <p:autoUpdate />
+                </p:messages>
+
+                <h:panelGrid id="grid" columns="4" cellpadding="5">
+                    <h:outputLabel for="name" value="Name:" style="font-weight:bold"/>
+                    <p:inputText id="name" value="#{validationView.text}" required="true" label="Name"/>
+                    <p:message for="name" />
+                    <h:outputText value="#{validationView.text}" />
+
+                    <h:outputLabel for="number" value="Number:" style="font-weight:bold"/>
+                    <p:inputMask id="number" value="#{validationView.integer}" label="Number" mask="9999999999">
+                        <f:validateLength minimum="5" maximum="8"/>
+                    </p:inputMask>
+                    <p:message for="number" />
+                    <h:outputText value="#{validationView.integer}" />
+
+                    <h:outputLabel for="dd" value="Double:" style="font-weight:bold"/>
+                    <p:inputText id="dd" value="#{validationView.doubleNumber}" converterMessage="Cannot convert to double.">
+                        <f:validateDoubleRange minimum="5.5" maximum="8.5" />
+                    </p:inputText>
+                    <p:message for="dd" />
+                    <h:outputText value="#{validationView.doubleNumber}" />
+
+                    <h:outputLabel for="money" value="Currency ($):" style="font-weight:bold"/>
+                    <p:inputText id="money" value="#{validationView.money}" label="Currency">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </p:inputText>
+                    <p:message for="money" />
+                    <h:outputText value="#{validationView.money}">
+                        <f:convertNumber  type="currency" currencySymbol="$" />
+                    </h:outputText>
+
+                    <h:outputLabel for="regex" value="Regex (^[a-zA-Z]+$):" style="font-weight:bold"/>
+                    <p:inputText id="regex" value="#{validationView.regexText}" validatorMessage="Value does not match pattern.">
+                        <f:validateRegex pattern="^[a-zA-Z]+$" />
+                    </p:inputText>
+                    <p:message for="regex" />
+                    <h:outputText value="#{validationView.regexText}" />
+
+                    <h:outputLabel for="date" value="Date (java.util.Date)" style="font-weight:bold"/>
+                    <p:inputText id="date" value="#{validationView.date}" label="Date (java.util.Date)">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <p:message for="date" />
+                    <h:outputText value="#{validationView.date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+
+                    <h:outputLabel for="date2" value="Date (java.util.Date; PF Calendar)" style="font-weight:bold"/>
+                    <p:calendar id="date2" value="#{validationView.date2}" pattern="MM/dd/yyyy" label="Date (java.util.Date; PF Calendar)">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:calendar>
+                    <p:message for="date2" />
+                    <h:outputText value="#{validationView.date2}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+
+                    <h:outputLabel for="date3" value="Date (java.util.Date; PF DatePicker)" style="font-weight:bold"/>
+                    <p:datePicker id="date3" value="#{validationView.date3}" pattern="MM/dd/yyyy" label="Date (java.util.Date; PF DatePicker)">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:datePicker>
+                    <p:message for="date3" />
+                    <h:outputText value="#{validationView.date3}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+
+                    <h:outputLabel for="localDate" value="LocalDate (Java8)" style="font-weight:bold"/>
+                    <p:inputText id="localDate" value="#{validationView.localDate}" label="LocalDate (Java8)">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </p:inputText>
+                    <p:message for="localDate" />
+                    <h:outputText value="#{validationView.localDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+
+                    <h:outputLabel for="localDate2" value="LocalDate (Java8; PF Calendar)" style="font-weight:bold"/>
+                    <p:calendar id="localDate2" value="#{validationView.localDate2}" pattern="MM/dd/yyyy" label="LocalDate (Java8; PF Calendar)">
+                        <f:convertDateTime pattern="MM/dd/yyyy" type="localDate" />
+                    </p:calendar>
+                    <p:message for="localDate2" />
+                    <h:outputText value="#{validationView.localDate2}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" type="localDate" />
+                    </h:outputText>
+
+                    <h:outputLabel for="localDate3" value="LocalDate (Java8; PF DatePicker)" style="font-weight:bold"/>
+                    <p:datePicker id="localDate3" value="#{validationView.localDate3}" pattern="MM/dd/yyyy" label="LocalDate (Java8; PF DatePicker)">
+                        <f:convertDateTime pattern="MM/dd/yyyy" type="localDate" />
+                    </p:datePicker>
+                    <p:message for="localDate3" />
+                    <h:outputText value="#{validationView.localDate3}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" type="localDate" />
+                    </h:outputText>
+
+                    <h:outputLabel for="desc" value="Description" style="font-weight:bold"/>
+                    <p:inputTextarea id="desc" value="#{validationView.description}" required="true" label="Description">
+                        <f:validateLength minimum="3" maximum="10" />
+                    </p:inputTextarea>
+                    <p:message for="desc" />
+                    <h:outputText value="#{validationView.description}" />
+                </h:panelGrid>
+
+                <p:remoteCommand name="rc" update="grid" process="name number" validateClient="true"/>
+                <p:defaultCommand target="btnAjax"/>
+
+                <p:commandButton value="Non-Ajax" ajax="false" icon="pi pi-check" validateClient="true" style="margin-right:10px"/>
+                <p:commandButton value="Ajax" id="btnAjax" update="grid" icon="pi pi-check" validateClient="true" style="margin-right:10px"/>
+                <p:commandButton value="Partial" update="grid" process="name number" validateClient="true" icon="pi pi-check" style="margin-right:10px"/>
+                <p:commandButton value="Disabled" ajax="false" icon="pi pi-check" style="margin-right:10px"/>
+                <p:commandButton value="Remote Command" type="button" onclick="rc()"  icon="pi pi-star-o" style="margin-right:10px"/>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

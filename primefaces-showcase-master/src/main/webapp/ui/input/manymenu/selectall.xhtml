@@ -1,0 +1,143 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-datalist .ui-datalist-content {
+                border:0 none
+            }
+
+            .ui-datalist ul {
+                padding:0px 10px 0 20px;
+                margin: 5px 0;
+            }
+
+            .label, .value {
+                vertical-align: top
+            }
+
+            .output {
+                font-weight: bold
+            }
+
+            .ui-selectmanymenu {
+                width: 175px;
+            }
+        </style>
+	</ui:define>
+
+    <ui:define name="title">
+        SelectManyMenu ((Un)SelectAll)
+    </ui:define>
+
+    <ui:define name="description">
+        SelectManyMenu is used to choose multiple items from a list. These example show selectAll/unselectAll-functionality.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/selectmanymenu" />
+    <ui:param name="widgetLink" value="selectmanymenu" />
+
+    <ui:define name="implementation">
+
+        <h:form>
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
+                <p:outputLabel for="basic" value="Basic:" />
+                <p:selectManyMenu id="basic" widgetVar="basic" value="#{selectManyView.selectedOptions}">
+                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                </p:selectManyMenu>
+                <p:outputPanel></p:outputPanel>
+                <p:outputPanel>
+                    <p:commandButton value="selectAll" onclick="PF('basic').selectAll()" />
+                    <p:commandButton value="unselectAll" onclick="PF('basic').unselectAll()" />
+                </p:outputPanel>
+
+                <p:outputLabel for="basic2" value="Basic (with checkboxes):" />
+                <p:selectManyMenu id="basic2" widgetVar="basic2" value="#{selectManyView.selectedOptions2}" showCheckbox="true">
+                    <f:selectItem itemLabel="Option 1" itemValue="1" />
+                    <f:selectItem itemLabel="Option 2" itemValue="2" />
+                    <f:selectItem itemLabel="Option 3" itemValue="3" />
+                </p:selectManyMenu>
+                <p:outputPanel></p:outputPanel>
+                <p:outputPanel>
+                    <p:commandButton value="selectAll" onclick="PF('basic2').selectAll()" />
+                    <p:commandButton value="unselectAll" onclick="PF('basic2').unselectAll()" />
+                </p:outputPanel>
+
+                <p:outputLabel for="advanced" value="Advanced:" />
+                <p:selectManyMenu id="advanced" widgetVar="advanced" value="#{selectManyView.selectedThemes}" converter="#{themeConverter}"
+                                  var="t" filter="true" filterMatchMode="contains">
+                    <f:selectItems value="#{selectManyView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+
+                    <p:column>
+                        <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{t.name}.png" alt="#{t.name}" styleClass="ui-theme" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{t.displayName}" />
+                    </p:column>
+                </p:selectManyMenu>
+                <p:outputPanel></p:outputPanel>
+                <p:outputPanel>
+                    <p:commandButton value="selectAll" onclick="PF('advanced').selectAll()" />
+                    <p:commandButton value="unselectAll" onclick="PF('advanced').unselectAll()" />
+                </p:outputPanel>
+
+                <p:outputLabel for="advanced2" value="Advanced: (with checkboxes)" />
+                <p:selectManyMenu id="advanced2" widgetVar="advanced2" value="#{selectManyView.selectedThemes2}" converter="#{themeConverter}"
+                                  var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
+                    <f:selectItems value="#{selectManyView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+
+                    <p:column>
+                        <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{t.name}.png" alt="#{t.name}" styleClass="ui-theme" />
+                    </p:column>
+
+                    <p:column>
+                        <h:outputText value="#{t.displayName}" />
+                    </p:column>
+                </p:selectManyMenu>
+                <p:outputPanel></p:outputPanel>
+                <p:outputPanel>
+                    <p:commandButton value="selectAll" onclick="PF('advanced2').selectAll()" />
+                    <p:commandButton value="unselectAll" onclick="PF('advanced2').unselectAll()" />
+                </p:outputPanel>
+
+            </h:panelGrid>
+
+            <p:separator />
+
+            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-check" />
+
+            <p:dialog header="Selected Values" modal="true" showEffect="fade" widgetVar="dlg" resizable="false">
+                <p:panelGrid columns="2" id="display" columnClasses="label,output">
+                    <h:outputText value="Basic:" />
+                    <p:dataList value="#{selectManyView.selectedOptions}" var="option">
+                        <h:outputText value="#{option}" />
+                    </p:dataList>
+
+                    <h:outputText value="Basic (with checkboxes):" />
+                    <p:dataList value="#{selectManyView.selectedOptions2}" var="option">
+                        <h:outputText value="#{option}" />
+                    </p:dataList>
+
+                    <h:outputText value="Advanced:" />
+                    <p:dataList value="#{selectManyView.selectedThemes}" var="t">
+                        <h:outputText value="#{t}" />
+                    </p:dataList>
+
+                    <h:outputText value="Advanced (with checkboxes):" />
+                    <p:dataList value="#{selectManyView.selectedThemes2}" var="t">
+                        <h:outputText value="#{t}" />
+                    </p:dataList>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

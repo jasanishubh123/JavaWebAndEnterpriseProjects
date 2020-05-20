@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Ajax Framework - <span class="subitem">RemoteCommand</span>
+    </ui:define>
+
+    <ui:define name="description">
+        <p>
+            RemoteCommand provides a simple way to execute backing bean methods with javascript.
+        </p>
+        <p>
+            Sometimes you need to add a dynamic callback for when the remote command completes. Each remote command, when
+            called, returns a promise-like object you can use for that purposes. Try opening a dev console and run the
+            function "runRemoteCommand". See below for the code.
+        </p>
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/remotecommand" />
+
+    <ui:define name="implementation">
+        
+        <h:form>
+            <p:remoteCommand name="rc" update="msgs" action="#{remoteCommandView.execute}" />
+
+            <p:remoteCommand name="rc2" update="msgs" action="#{remoteCommandView.execute}"
+                oncomplete="alert('Return value from server: ' + args.serverTime)"/>
+            
+            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <h:panelGrid columnClasses="value">
+                <p:commandButton type="button" value="Execute simple command" icon="pi pi-refresh"
+                    onclick="rc()" />
+
+                <p:commandButton type="button" value="Passing parameters to bean method" icon="pi pi-refresh"
+                    onclick="rc([{name: 'param1', value: 'foo'}, {name: 'param2', value: 'bar'}])" />
+
+                <p:commandButton type="button" value="Receiving values form the bean" icon="pi pi-refresh"
+                    onclick="rc2()" />                
+            </h:panelGrid>
+
+            <script type="text/javascript">
+                function runRemoteCommand(param1, param2) {
+                    var promise = rc([{name: 'param1', value: param1}, {name: 'param2', value: param2}]);
+                    promise.then(function(responseData) {
+                        var serverTime = responseData.jqXHR.pfArgs.serverTime;
+                        console.log("Request successful, returned server time is", serverTime);
+                    }).catch(function(error){
+                        console.error("Request failed", error);
+                    });
+                }
+            </script>
+        </h:form>    
+    </ui:define>
+
+</ui:composition>

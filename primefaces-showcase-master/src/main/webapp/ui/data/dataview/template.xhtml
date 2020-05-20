@@ -1,0 +1,28 @@
+<!DOCTYPE html [
+    <!ENTITY bull "&#8226;"> ]>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+    <ui:define name="submenu">
+        <div>
+            <ul>
+                <li>
+                    <a href="#{request.contextPath}/ui/data/dataview/basic.xhtml">&bull; Basic</a>
+                </li>
+                <li>
+                    <a href="#{request.contextPath}/ui/data/dataview/paginator.xhtml">&bull; Paginator</a>
+                </li>
+                <li>
+                    <a href="#{request.contextPath}/ui/data/dataview/multiViewState.xhtml">&bull; MultiViewState</a>
+                </li>
+                <li>
+                    <a href="#{request.contextPath}/ui/data/dataview/lazy.xhtml">&bull; Lazy</a>
+                </li>
+                <li>
+                    <a href="#{request.contextPath}/ui/data/dataview/listOnly.xhtml">&bull; List only</a>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+
+</ui:composition>

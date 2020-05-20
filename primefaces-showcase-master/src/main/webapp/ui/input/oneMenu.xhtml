@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+	</ui:define>
+
+    <ui:define name="title">
+        SelectOneMenu
+    </ui:define>
+
+    <ui:define name="description">
+        SelectOneMenu is used to choose a single item from a list.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/selectonemenu" />
+    <ui:param name="widgetLink" value="selectonemenu" />
+
+    <ui:define name="implementation">
+
+        <h:form>
+            <p:messages>
+                <p:autoUpdate />
+            </p:messages>
+
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <p:outputLabel for="@next" value="Basic:" />
+                <p:selectOneMenu id="console" value="#{selectOneMenuView.console}" style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                    <f:facet name="footer">
+                       <p:separator />
+                       <h:outputText value="3 consoles" style="font-weight:bold;"/>
+                    </f:facet>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="RTL:" />
+                <p:selectOneMenu id="trl" value="#{selectOneMenuView.rtl}" style="width:125px" dir="rtl">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="Grouping: " />
+                <p:selectOneMenu id="car" value="#{selectOneMenuView.car}">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{selectOneMenuView.cars}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="Editable: " />
+                <p:selectOneMenu id="city" value="#{selectOneMenuView.city}" effect="fold" editable="true">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{selectOneMenuView.cities}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="Advanced:" />
+                <p:selectOneMenu id="advanced" value="#{selectOneMenuView.theme}" converter="#{themeConverter}" panelStyle="width:180px"
+                                 effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                    <f:selectItems value="#{selectOneMenuView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme}" />
+
+                    <p:column style="width:10%">
+                        <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{t.name}.png" alt="#{t.name}" styleClass="ui-theme" />
+                    </p:column>
+
+                    <p:column>
+                       <f:facet name="header">
+                           <h:outputText value="Name"/>
+                        </f:facet>
+                        <h:outputText value="#{t.displayName}" />
+                    </p:column>
+                    
+                    <f:facet name="footer">
+                       <p:separator />
+                       <h:outputText value="#{selectOneMenuView.themes.size()} themes" style="font-weight:bold;"/>
+                    </f:facet>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="Lazy:" />
+                <p:selectOneMenu id="lazy" value="#{selectOneMenuView.option}" dynamic="true" style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{selectOneMenuView.options}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="@next" value="Long Item Label:" />
+                <p:selectOneMenu id="longItemLabel" value="#{selectOneMenuView.longItemLabel}" style="width:100px">
+                    <f:selectItem itemLabel="Zero" itemValue="0" />
+                    <f:selectItem itemLabel="One" itemValue="1" />
+                    <f:selectItem itemLabel="Two" itemValue="2" />
+                    <f:selectItem itemLabel="Three" itemValue="3" />
+                    <f:selectItem itemLabel="Four" itemValue="4" />
+                    <f:selectItem itemLabel="Five" itemValue="5" />
+                    <f:selectItem itemLabel="Six" itemValue="6" />
+                    <f:selectItem itemLabel="Seven" itemValue="7" />
+                    <f:selectItem itemLabel="Long item here not necessary in the end" itemValue="99" />
+                    <f:selectItem itemLabel="Eight" itemValue="8" />
+                    <f:selectItem itemLabel="Nine" itemValue="9" />
+                    <f:selectItem itemLabel="Ten and not more than ten " itemValue="10" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-check" />
+
+            <p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
+                <p:panelGrid columns="2" id="display" columnClasses="label,value">
+                    <h:outputText value="Basic:" />
+                    <h:outputText value="#{selectOneMenuView.console}" />
+
+                    <h:outputText value="RTL:" />
+                    <h:outputText value="#{selectOneMenuView.rtl}" />
+
+                    <h:outputText value="Grouping:" />
+                    <h:outputText value="#{selectOneMenuView.car}" />
+
+                    <h:outputText value="Editable" />
+                    <h:outputText value="#{selectOneMenuView.city}" />
+
+                    <h:outputText value="Advanced:" />
+                    <h:outputText value="#{selectOneMenuView.theme.displayName}" />
+
+                    <h:outputText value="Lazy:" />
+                    <h:outputText value="#{selectOneMenuView.option}" />
+
+                    <h:outputText value="Long Item Label:" />
+                    <h:outputText value="#{selectOneMenuView.longItemLabel}" />
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

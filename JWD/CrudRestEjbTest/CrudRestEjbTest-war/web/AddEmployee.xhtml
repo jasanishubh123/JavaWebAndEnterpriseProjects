@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <center>
+              <h:form>
+                  <h:inputHidden id="eid" value="#{dataLogic.eid}" ></h:inputHidden>
+
+            <h:panelGrid columns="2" border="1">
+                
+                <h:outputLabel for="ename" value="EmployeeName" id="namelbl" ></h:outputLabel>
+                <h:inputText id="ename" value="#{dataLogic.ename}" ></h:inputText>
+                 <h:outputLabel for="pass" value="Password" ></h:outputLabel>
+                 <h:inputText id="pass" value="#{dataLogic.pass}" ></h:inputText>  
+                  <h:outputLabel for="dept" value="Department" ></h:outputLabel>
+                  
+                  <h:selectOneMenu value="#{dataLogic.did}">
+                      <f:selectItems  value="#{dataLogic.departments}" var="model" itemLabel="#{model.departmentName}" itemValue="#{model.departmentID}" ></f:selectItems>
+                  </h:selectOneMenu>
+                <h:outputLabel for="sal" value="Salary" ></h:outputLabel>
+                <h:inputText id="sal" value="#{dataLogic.sal}">
+                    <f:converter converterId="javax.faces.Integer"></f:converter>
+                </h:inputText>
+                <h:commandButton value="submit" action="#{dataLogic.AddEmp()}"></h:commandButton>
+                
+            </h:panelGrid>
+        </h:form>
+        </center>
+    </h:body>
+</html>
+

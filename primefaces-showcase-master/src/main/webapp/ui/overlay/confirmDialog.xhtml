@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">
+        Confirm Dialog
+    </ui:define>
+
+    <ui:define name="description">
+        ConfirmDialog is integrated with confirm behavior and used as a replacement for the javascript confirmation utility.
+    </ui:define>
+
+    <ui:param name="documentationLink" value="/components/confirm" />
+    <ui:param name="widgetLink" value="confirm" />
+
+    <ui:define name="implementation">
+    
+        <h:form>     
+            <p:growl id="message" showDetail="true" />
+            
+            <p:commandButton value="Destroy the World" action="#{dialogView.destroyWorld}" update="message">
+                <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
+            </p:commandButton>
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+            </p:confirmDialog>      
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>
